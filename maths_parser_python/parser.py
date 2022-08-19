@@ -57,7 +57,7 @@ def parse(string_to_parse: str) -> TreeNode:
             return (Identifier(token.lexeme), lex.next())
 
         if token.type == TokenType.NUMBER:
-            return (Integer(token.lexeme), lex.next())
+            return (Number(token.lexeme), lex.next())
 
         if token.type == TokenType.LPAREN:
             a, token = parse_expr()
@@ -96,6 +96,10 @@ if __name__ == '__main__':
     tree = parse("x + 5 * 2")
     assert str(tree) == "(x + (5 * 2))"
     assert tree.eval({'x': 12}) == 22
+
+    simplified_tree = tree.simplify()
+    assert str(simplified_tree) == "(x + 10)"
+    assert simplified_tree.eval({'x': 12}) == 22
 
     tree = parse("x / 7 + 42 * 8 / (8 - 6)")
     assert str(tree) == "((x / 7) + ((42 * 8) / (8 - 6)))"
