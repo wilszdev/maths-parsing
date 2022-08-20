@@ -1,6 +1,8 @@
 # Maths Parsing
 
-Recursive descent parsing for very basic maths expressions.
+Recursive descent parsing and evaluation for very basic maths expressions.
+
+There's also some simplification, but only for adjacent numeric nodes. Not advanced by any means.
 
 These two resources were pretty helpful for getting started:
 - [Video: recursive descent parsing](https://www.youtube.com/watch?v=SToUyjAsaFk)
