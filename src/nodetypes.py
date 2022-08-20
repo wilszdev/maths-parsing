@@ -17,21 +17,22 @@ class BinaryOperator(TreeNode):
         return f"({self.left} {self.symbol} {self.right})"
 
     def simplify(self):
-        self.left = self.left.simplify()
-        self.right = self.right.simplify()
+        s_self = copy(self)
+        s_self.left = self.left.simplify()
+        s_self.right = self.right.simplify()
 
         if (
-            isinstance(self.left, (Integer, Float))
-            and isinstance(self.right, (Integer, Float))
+            isinstance(s_self.left, (Integer, Float))
+            and isinstance(s_self.right, (Integer, Float))
         ):
             if (
-                isinstance(self.left, (Integer))
-                and isinstance(self.right, (Integer))
+                isinstance(s_self.left, (Integer))
+                and isinstance(s_self.right, (Integer))
             ):
-                return Integer(self.eval())
-            return Float(self.eval())
+                return Integer(s_self.eval())
+            return Float(s_self.eval())
 
-        return self
+        return s_self
 
 
 class UnaryOperator(TreeNode):
@@ -42,12 +43,13 @@ class UnaryOperator(TreeNode):
         return f"({self.symbol}{self.arg})"
 
     def simplify(self):
-        self.arg.simplify()
+        s_self = copy(self)
+        s_self.arg = self.arg.simplify()
 
-        if isinstance(self.arg, (Integer, Float)):
-            return Float(self.eval())
+        if isinstance(s_self.arg, (Integer, Float)):
+            return Float(s_self.eval())
 
-        return self
+        return s_self
 
 
 class Add(BinaryOperator):
